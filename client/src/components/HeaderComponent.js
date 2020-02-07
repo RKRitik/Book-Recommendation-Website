@@ -98,23 +98,23 @@ class Header extends Component {
                 </NavItem>
                 <NavItem>
                   <NavLink className="nav-link" to="/find">
-                    <span className="fa fa-list fa-lg"></span> Find Books
+                    <span className="fa fa-search"></span> Find Books
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink className="nav-link" to="/recommend">
+                  <NavLink className="nav-link disabled" to="/recommend">
                     <span className="fa fa-list fa-lg"></span> Get Recommendations
                   </NavLink>
                 </NavItem>
 
                 <NavItem>
-                  <NavLink className="nav-link" to="/books">
-                    <span className="fa fa-list fa-lg"></span> My Books
+                  <NavLink className="nav-link disabled" to="/books">
+                    <span className="fa fa-book fa-lg"></span> My Books
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink className="nav-link" to="/reviews">
-                    <span className="fa fa-list fa-lg"></span> My Reviews
+                  <NavLink className="nav-link disabled" to="/reviews">
+                    <span className="fa fa-star fa-lg"></span> My Reviews
                   </NavLink>
                 </NavItem>
 

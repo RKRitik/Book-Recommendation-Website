@@ -15,7 +15,17 @@ class Main extends Component {
     super(props);
   }
 
+
   render() {
+    //   const BookWithId = ({ match }) => {
+    //     return (
+    //       // <BookDetail book={this.props.dishes.filter((dish) => dish.id === parseInt(match.params.dishId, 10))[0]}
+    //       //   comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10))} />
+
+    //     );
+    // };
+
+
     return (
 
       <div>
@@ -29,12 +39,12 @@ class Main extends Component {
             <Route exact path='/reviews' component={Reviews} />
             <Route exact path='/books' component={Books} />
             {/* <Route exact path='/find' component={() => <Menu dishes={this.props.dishes} />} /> */}
-            {/* <Route path='/menu/:dishId' component={DishWithId} /> */}
+            <Route path='/find/:dishId' component={BookWithId} />
             <Redirect to="/home" />
           </Switch>
         </div>
         <Footer />
-      </div>
+      </div >
 
     );
   }
