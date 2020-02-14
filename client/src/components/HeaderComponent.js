@@ -45,7 +45,46 @@ class Header extends Component {
         </NavItem>
       </Fragment>
     );
+    const webLinks = (
+      <Fragment>
+        <NavItem>
+          <NavLink className="nav-link disabled" to="/recommend">
+            <span className="fa fa-list fa-lg"></span> Get Recommendations
+                  </NavLink>
+        </NavItem>
 
+        <NavItem>
+          <NavLink className="nav-link disabled" to="/books">
+            <span className="fa fa-book fa-lg"></span> My Books
+                  </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink className="nav-link disabled" to="/reviews">
+            <span className="fa fa-star fa-lg"></span> My Reviews
+                  </NavLink>
+        </NavItem>
+      </Fragment>
+    );
+    const authWebLinks = (
+      <Fragment>
+        <NavItem>
+          <NavLink className="nav-link " to="/recommend">
+            <span className="fa fa-list fa-lg"></span> Get Recommendations
+                  </NavLink>
+        </NavItem>
+
+        <NavItem>
+          <NavLink className="nav-link " to="/books">
+            <span className="fa fa-book fa-lg"></span> My Books
+                  </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink className="nav-link " to="/reviews">
+            <span className="fa fa-star fa-lg"></span> My Reviews
+                  </NavLink>
+        </NavItem>
+      </Fragment>
+    );
     const guestLinks = (
       <Fragment>
         <NavItem>
@@ -83,22 +122,8 @@ class Header extends Component {
                     <span className="fa fa-search"></span> Find Books
                   </NavLink>
                 </NavItem>
-                <NavItem>
-                  <NavLink className="nav-link " to="/recommend">
-                    <span className="fa fa-list fa-lg"></span> Get Recommendations
-                  </NavLink>
-                </NavItem>
 
-                <NavItem>
-                  <NavLink className="nav-link disabled" to="/books">
-                    <span className="fa fa-book fa-lg"></span> My Books
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink className="nav-link disabled" to="/reviews">
-                    <span className="fa fa-star fa-lg"></span> My Reviews
-                  </NavLink>
-                </NavItem>
+                {isAuthenticated ? authWebLinks : webLinks}
 
                 <NavItem>
                   <NavLink className="nav-link" to="/about">

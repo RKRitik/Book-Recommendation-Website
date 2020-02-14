@@ -35,6 +35,9 @@ const mapDispatchToProps = (dispatch) => ({
   logout: () => dispatch(logout()),
   clearErrors: () => dispatch(clearErrors()),
   register: (user) => dispatch(register(user))
+  ///-------------------------------------////
+
+
 });
 class Main extends Component {
   constructor(props) {
