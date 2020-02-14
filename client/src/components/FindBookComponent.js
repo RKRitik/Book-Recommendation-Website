@@ -1,33 +1,48 @@
-import React, { Component } from 'react';
+import React from "react";
+import {
+    Card,
+    CardImg,
+    CardImgOverlay,
+    CardTitle,
+    Breadcrumb,
+    BreadcrumbItem
+} from "reactstrap";
+import { Link } from "react-router-dom";
 
-class Find extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-
-        }
-    }
-    render() {
-
-        return (
-            <div className='container'>
-                <h1> Find Books</h1>
-                <div className='row row-content'>
-                    Mauris ut commodo ligula. Nam ac mi euismod, facilisis turpis eu, gravida nulla.
-                    Vestibulum placerat bibendum posuere. Integer ac arcu quis tellus consequat consequat.
-                    Sed condimentum placerat eros mollis tincidunt. Aenean sit amet euismod velit.
-                    Curabitur lobortis massa eget lobortis molestie. Suspendisse bibendum tortor vel magna dapibus, at posuere magna rhoncus.
-                    Mauris cursus augue et elit vulputate sodales.
-                    Aliquam ut feugiat velit. Quisque aliquam vehicula lorem nec vulputate.
-                    Etiam id sem risus. Mauris sit amet tortor sem.
-                </div>
-            </div>
-        );
-    }
-
-
-
+function RenderBook({ book }) {
+    return (
+        <Card>
+            <Link to={`/find/${book.id}`}>
+                <CardImg width="100%" src={book.image} alt={book.name} />
+                <CardImgOverlay>
+                    <CardTitle>{book.name}</CardTitle>
+                </CardImgOverlay>
+            </Link>
+        </Card>
+    );
 }
 
+const Find = props => {
+    const results = props.books.map(book => {
+        return (
+            <div className="col-12 col-md-5 m-1">
+                <RenderBook book={book} onClick={props.onClick} />
+            </div>
+        );
+    });
+    return (
+        <div className="container">
+            <div className="row">
+                <Breadcrumb>
+                    <BreadcrumbItem>
+                        <Link to="/home">Home</Link>
+                    </BreadcrumbItem>
+                    <BreadcrumbItem active>Find</BreadcrumbItem>
+                </Breadcrumb>
+            </div>
+            <div className="row">{results}</div>
+        </div>
+    );
+};
 
 export default Find;

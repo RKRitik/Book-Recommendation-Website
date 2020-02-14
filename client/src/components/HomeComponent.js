@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
+import React from 'react';
+
 import { BOOKS } from '../shared/Books';
 import BooksCarousel from './CarouselComponent';
 

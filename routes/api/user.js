@@ -12,20 +12,21 @@ const User = require('../../models/User');
 // @desc    Register new user
 // @access  Public
 router.post('/', (req, res) => {
-  
-    const { name, email, password } = req.body;
-    
 
-  
+
+  const { name, email, password } = req.body;
+
+
+
   // Simple validation
-  if(!name || !email || !password) {
+  if (!name || !email || !password) {
     return res.status(400).json({ msg: 'Please enter all fields' });
   }
 
   // Check for existing user
   User.findOne({ email })
     .then(user => {
-      if(user) return res.status(400).json({ msg: 'User already exists' });
+      if (user) return res.status(400).json({ msg: 'User already exists' });
 
       const newUser = new User({
         name,
@@ -36,7 +37,7 @@ router.post('/', (req, res) => {
       // Create salt & hash
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
-          if(err) throw err;
+          if (err) throw err;
           console.log('about to save')
           newUser.password = hash;
           newUser.save()
@@ -46,7 +47,7 @@ router.post('/', (req, res) => {
                 config.get('jwtSecret'),
                 { expiresIn: 3600 },
                 (err, token) => {
-                  if(err) throw err;
+                  if (err) throw err;
                   res.json({
                     token,
                     user: {
@@ -58,7 +59,7 @@ router.post('/', (req, res) => {
                 }
               )
             })
-            .catch(e=>{
+            .catch(e => {
               console.log('some mongo error');
 
             })

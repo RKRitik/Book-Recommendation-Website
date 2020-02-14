@@ -1,4 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from 'react';
+import RegisterModal from './auth/RegisterModal';
+import LoginModal from './auth/LoginModal';
+import Logout from './auth/Logout';
 import {
   Nav,
   Navbar,
@@ -6,77 +9,56 @@ import {
   NavbarToggler,
   Collapse,
   NavItem,
-  Jumbotron,
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  Form,
-  Label,
-  Input,
-  FormGroup
+  Jumbotron
 } from "reactstrap";
 import { NavLink } from "react-router-dom";
 
 class Header extends Component {
   constructor(props) {
     super(props);
-    this.handleLogin = this.handleLogin.bind(this);
     this.toggleNav = this.toggleNav.bind(this);
-    this.toggleModal = this.toggleModal.bind(this);
     this.state = {
-      isNavOpen: false,
-      isModalOpen: false
-
+      isNavOpen: false
     };
   }
-  handleLogin(event) {
-    this.toggleModal();
-    alert("Username: " + this.username.value + " Password: " + this.password.value
-      + " Remember: " + this.remember.checked);
-    event.preventDefault();
 
-  }
   toggleNav() {
     this.setState({
       isNavOpen: !this.state.isNavOpen
     });
   }
-  toggleModal() {
-    this.setState({
-      isModalOpen: !this.state.isModalOpen
-    });
-  }
+
 
 
   render() {
+    const { isAuthenticated, user } = this.props.auth;
+    console.log(this.props);
+    const authLinks = (
+      <Fragment>
+        <NavItem>
+          <span className='navbar-text mr-3'>
+            <strong>{user ? `Welcome ${user.name}` : ''}</strong>
+          </span>
+        </NavItem>
+        <NavItem>
+          <Logout logout={this.props.logout} />
+        </NavItem>
+      </Fragment>
+    );
+
+    const guestLinks = (
+      <Fragment>
+        <NavItem>
+          <RegisterModal error={this.props.error} auth={this.props.auth} register={this.props.register} clearErrors={this.props.clearErrors} />
+        </NavItem>
+        <NavItem>
+          <LoginModal error={this.props.error} auth={this.props.auth} login={this.props.login} clearErrors={this.props.clearErrors} />
+        </NavItem>
+      </Fragment>
+    );
     return (
       <div>
-        <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-          <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
-          <ModalBody>
-            <Form onSubmit={this.handleLogin}>
-              <FormGroup>
-                <Label htmlFor="username">Username</Label>
-                <Input type="text" id="username" name="username"
-                  innerRef={(input) => this.username = input} />
-              </FormGroup>
-              <FormGroup>
-                <Label htmlFor="password">Password</Label>
-                <Input type="password" id="password" name="password"
-                  innerRef={(input) => this.password = input} />
-              </FormGroup>
-              <FormGroup check>
-                <Label check>
-                  <Input type="checkbox" name="remember"
-                    innerRef={(input) => this.remember = input} />
-                  Remember me
-                                </Label>
-              </FormGroup>
-              <Button type="submit" value="submit" color="primary">Login</Button>
-            </Form>
-          </ModalBody>
-        </Modal>
+
         <Navbar dark expand="md">
           <div className="container">
             <NavbarToggler onClick={this.toggleNav} />
@@ -102,7 +84,7 @@ class Header extends Component {
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink className="nav-link disabled" to="/recommend">
+                  <NavLink className="nav-link " to="/recommend">
                     <span className="fa fa-list fa-lg"></span> Get Recommendations
                   </NavLink>
                 </NavItem>
@@ -126,11 +108,16 @@ class Header extends Component {
 
 
               </Nav>
-              <Nav className="ml-auto" navbar>
+
+
+              <Nav className='ml-auto' navbar>
+                {isAuthenticated ? authLinks : guestLinks}
+              </Nav>
+              {/* <Nav className="ml-auto" navbar>
                 <NavItem>
                   <Button outline onClick={this.toggleModal}><span className="fa fa-sign-in fa-lg"></span> Login</Button>
                 </NavItem>
-              </Nav>
+              </Nav> */}
 
 
 

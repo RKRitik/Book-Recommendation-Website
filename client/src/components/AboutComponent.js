@@ -4,8 +4,7 @@ import {
   BreadcrumbItem,
   Card,
   CardBody,
-  CardHeader,
-  Media
+  CardHeader
 } from "reactstrap";
 import { Link } from "react-router-dom";
 // function RenderLeader({ leader }) {
