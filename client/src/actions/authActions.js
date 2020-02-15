@@ -1,27 +1,17 @@
 import axios from 'axios';
 import { returnErrors } from './errorActions';
-
-import {
-  USER_LOADED,
-  USER_LOADING,
-  AUTH_ERROR,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGOUT_SUCCESS,
-  REGISTER_SUCCESS,
-  REGISTER_FAIL
-} from './types';
+import * as ActionTypes from './ActionTypes';
 
 // Check token & load user
 export const loadUser = () => (dispatch, getState) => {
   // User loading
-  dispatch({ type: USER_LOADING });
+  dispatch({ type: ActionTypes.USER_LOADING });
 
   axios
     .get('/api/auth/user', tokenConfig(getState))
     .then(res =>
       dispatch({
-        type: USER_LOADED,
+        type: ActionTypes.USER_LOADED,
         payload: res.data
       })
     )
@@ -29,7 +19,7 @@ export const loadUser = () => (dispatch, getState) => {
 
       dispatch(returnErrors(err.response.data, err.response.status));
       dispatch({
-        type: AUTH_ERROR
+        type: ActionTypes.AUTH_ERROR
       });
     });
 };
@@ -50,7 +40,7 @@ export const register = ({ name, email, password }) => dispatch => {
     .post('/api/user', body, config)
     .then(res =>
       dispatch({
-        type: REGISTER_SUCCESS,
+        type: ActionTypes.REGISTER_SUCCESS,
         payload: res.data
       })
     )
@@ -60,7 +50,7 @@ export const register = ({ name, email, password }) => dispatch => {
         returnErrors(err.response.data, err.response.status, 'REGISTER_FAIL')
       );
       dispatch({
-        type: REGISTER_FAIL
+        type: ActionTypes.REGISTER_FAIL
       });
     });
 };
@@ -81,17 +71,19 @@ export const login = ({ email, password }) => dispatch => {
     .post('/api/auth', body, config)
     .then(res =>
       dispatch({
-        type: LOGIN_SUCCESS,
+        type: ActionTypes.LOGIN_SUCCESS,
         payload: res.data
       })
     )
     .catch(err => {
-
-      dispatch(
-        returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL')
-      );
+      if (err)
+        dispatch(returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL'));
+      else {
+        dispatch(returnErrors("Internal Server Error", 500, 'LOGIN_FAIL'));
+        console.log('sent 500');
+      }
       dispatch({
-        type: LOGIN_FAIL
+        type: ActionTypes.LOGIN_FAIL
       });
     });
 };
@@ -99,7 +91,7 @@ export const login = ({ email, password }) => dispatch => {
 // Logout User
 export const logout = () => {
   return {
-    type: LOGOUT_SUCCESS
+    type: ActionTypes.LOGOUT_SUCCESS
   };
 };
 

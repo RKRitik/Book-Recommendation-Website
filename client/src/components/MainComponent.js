@@ -7,16 +7,19 @@ import Recommend from './GetRecommendations';
 import Find from './FindBookComponent';
 import Reviews from './MyReviews';
 import Books from './MyBooks';
-import { BOOKS } from '../shared/Books';
+import BookDetail from './BookDetailComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { login, logout, register } from '../actions/authActions';
 import { clearErrors } from '../actions/errorActions';
+import { getResults } from '../actions/resultActions';
 const mapStateToProps = state => {
   return {
     review: state.review,
     auth: state.auth,
-    error: state.error
+    error: state.error,
+    result: state.result,
+    book: state.book
     //leaders: state.leaders
   }
 }
@@ -30,6 +33,10 @@ const mapDispatchToProps = (dispatch) => ({
   // fetchPromos: () => dispatch(fetchPromos()),
   // fetchLeaders: () => dispatch(fetchLeaders()),
   // postFeedback: (Feedback) => dispatch(postFeedback(Feedback))
+  ////------------GetResults---------------//
+  getResults: (searchTerms, filters) => dispatch(getResults(searchTerms, filters)),
+
+
   ////------------Auth---------------------//
   login: (user) => dispatch(login(user)),
   logout: () => dispatch(logout()),
@@ -40,21 +47,22 @@ const mapDispatchToProps = (dispatch) => ({
 
 });
 class Main extends Component {
-  constructor(props) {
-    super(props);
 
-  }
 
 
   render() {
-
-    // const BookWithId = ({ match }) => {
-    //   return (
-    //     <BookDetail book={this.props.dishes.filter((dish) => dish.id === parseInt(match.params.dishId, 10))[0]}
-    //       //   comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10))} />
-
-    //     );
-    // };
+    const BookWithId = ({ match }) => {
+      console.log('bookId = ', match.params.bookId);
+      return (
+        <BookDetail book={this.props.result.results.filter((book) => book.id === match.params.bookId)[0]}
+          isLoading={this.props.result.isLoading}
+          errMess={this.props.result.errMess}
+        // comments={this.props.comments.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10))}
+        // commentsErrMess={this.props.comments.errMess}
+        // postComment={this.props.postComment}
+        />
+      );
+    };
 
 
     return (
@@ -69,8 +77,8 @@ class Main extends Component {
             <Route exact path='/recommend' component={Recommend} />
             <Route exact path='/reviews' component={Reviews} />
             <Route exact path='/books' component={Books} />
-            <Route exact path='/find' component={() => <Find books={BOOKS} />} />
-            {/* <Route path='/find/:bookId' component={BookWithId} /> */}
+            <Route exact path='/find' component={() => <Find result={this.props.result} getResults={this.props.getResults} />} />
+            <Route path='/find/:bookId' component={BookWithId} />
             <Redirect to="/home" />
           </Switch>
         </div>

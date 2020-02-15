@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux';
-import itemReducer from './itemReducer';
+import bookReducer from './bookReducer';
 import errorReducer from './errorReducer';
 import authReducer from './authReducer';
-import reviewReducer from './reviewReducer'
-
+import reviewReducer from './reviewReducer';
+import resultReducer from './resultReducer';
 export default combineReducers({
-  item: itemReducer,
+  book: bookReducer,
   error: errorReducer,
   auth: authReducer,
-  review: reviewReducer
+  review: reviewReducer,
+  result: resultReducer
 });

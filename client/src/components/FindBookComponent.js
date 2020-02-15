@@ -8,14 +8,18 @@ import {
     BreadcrumbItem
 } from "reactstrap";
 import { Link } from "react-router-dom";
-
+import SearchBarComponent from './SearchBarComponent';
+import LoadingComponent from './LoadingComponent';
 function RenderBook({ book }) {
+    const image = ((book.volumeInfo.imageLinks) ? book.volumeInfo.imageLinks.smallThumbnail : undefined);
+
+
     return (
         <Card>
             <Link to={`/find/${book.id}`}>
-                <CardImg width="100%" src={book.image} alt={book.name} />
+                <CardImg width="100%" src={image} alt={book.volumeInfo.title} />
                 <CardImgOverlay>
-                    <CardTitle>{book.name}</CardTitle>
+                    <CardTitle>{book.volumeInfo.title}</CardTitle>
                 </CardImgOverlay>
             </Link>
         </Card>
@@ -23,10 +27,10 @@ function RenderBook({ book }) {
 }
 
 const Find = props => {
-    const results = props.books.map(book => {
+    const results = props.result.results.map(book => {
         return (
-            <div className="col-12 col-md-5 m-1">
-                <RenderBook book={book} onClick={props.onClick} />
+            <div key={book.id} className="col-12 col-md-5 m-1">
+                <RenderBook book={book} />
             </div>
         );
     });
@@ -40,7 +44,13 @@ const Find = props => {
                     <BreadcrumbItem active>Find</BreadcrumbItem>
                 </Breadcrumb>
             </div>
-            <div className="row">{results}</div>
+            <div className='row'>
+                <SearchBarComponent getResults={props.getResults} />
+            </div>
+
+            <div className="row">
+                {props.result.isLoading ? <LoadingComponent /> : results}
+            </div>
         </div>
     );
 };

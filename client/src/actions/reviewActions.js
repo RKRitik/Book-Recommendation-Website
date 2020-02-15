@@ -1,15 +1,15 @@
 import axios from 'axios';
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING } from './types';
+import * as ActionTypes from './ActionTypes';
 import { tokenConfig } from './authActions';
 import { returnErrors } from './errorActions';
 
-export const getItems = () => dispatch => {
+export const getReviewss = () => dispatch => {
   dispatch(setItemsLoading());
   axios
-    .get('/api/items')
+    .get('/api/review')
     .then(res =>
       dispatch({
-        type: GET_ITEMS,
+        type: ActionTypes.GET_REVIEWS,
         payload: res.data
       })
     )
@@ -18,12 +18,12 @@ export const getItems = () => dispatch => {
     );
 };
 
-export const addItem = item => (dispatch, getState) => {
+export const addReview = review => (dispatch, getState) => {
   axios
-    .post('/api/items', item, tokenConfig(getState))
+    .post('/api/review', review, tokenConfig(getState))
     .then(res =>
       dispatch({
-        type: ADD_ITEM,
+        type: ActionTypes.ADD_ITEM,
         payload: res.data
       })
     )
@@ -32,12 +32,12 @@ export const addItem = item => (dispatch, getState) => {
     );
 };
 
-export const deleteItem = id => (dispatch, getState) => {
+export const deleteReview = id => (dispatch, getState) => {
   axios
-    .delete(`/api/items/${id}`, tokenConfig(getState))
+    .delete(`/api/review/${id}`, tokenConfig(getState))
     .then(res =>
       dispatch({
-        type: DELETE_ITEM,
+        type: ActionTypes.DELETE_REVIEW,
         payload: id
       })
     )
@@ -46,8 +46,8 @@ export const deleteItem = id => (dispatch, getState) => {
     );
 };
 
-export const setItemsLoading = () => {
+export const setReviewsLoading = () => {
   return {
-    type: ITEMS_LOADING
+    type: ActionTypes.REVIEWS_LOADING
   };
 };

@@ -32,7 +32,6 @@ class Header extends Component {
 
   render() {
     const { isAuthenticated, user } = this.props.auth;
-    console.log(this.props);
     const authLinks = (
       <Fragment>
         <NavItem>

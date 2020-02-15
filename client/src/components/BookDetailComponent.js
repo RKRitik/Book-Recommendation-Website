@@ -9,7 +9,7 @@ import {
   BreadcrumbItem,
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import CommentForm from './CommentForm'
+// import CommentForm from './CommentForm'
 
 const RenderReviews = ({ reviews }) => {
   if (reviews != null) {
@@ -40,13 +40,16 @@ const RenderReviews = ({ reviews }) => {
   }
 }
 const RenderBook = ({ book }) => {
+  const image = ((book.volumeInfo.imageLinks) ? book.volumeInfo.imageLinks.smallThumbnail : undefined);
+
   if (book != null) {
     return (
+
       <Card key={book.id}>
-        <CardImg width="100%" src={book.image} alt={book.name} />
+        <CardImg width="100%" src={image} alt={book.volumeInfo.title} />
         <CardBody>
-          <CardTitle>{book.name}</CardTitle>
-          <CardText>{book.description}</CardText>
+          <CardTitle>{book.volumeInfo.title}</CardTitle>
+          <CardText>{book.volumeInfo.description}</CardText>
         </CardBody>
       </Card>
     );
@@ -56,6 +59,7 @@ const RenderBook = ({ book }) => {
 }
 
 const BookDetail = (props) => {
+  console.log(props);
   return (
 
     <div className="container">
@@ -63,12 +67,12 @@ const BookDetail = (props) => {
       <div className="row">
         <Breadcrumb>
           <BreadcrumbItem>
-            <Link to="/menu">Find</Link>
+            <Link to="/find">Find</Link>
           </BreadcrumbItem>
-          <BreadcrumbItem active>{props.book.name}</BreadcrumbItem>
+          <BreadcrumbItem active>{props.book.volumeInfo.title}</BreadcrumbItem>
         </Breadcrumb>
         <div className="col-12">
-          <h3>{props.book.name}</h3>
+          <h3>{props.book.volumeInfo.title}</h3>
           <hr />
         </div>
       </div>
@@ -76,10 +80,10 @@ const BookDetail = (props) => {
         <div className="col-12 col-sm-5 m-1">
           <RenderBook book={props.book} />
         </div>
-        <div className="col-12 col-sm-5 m-1">
+        {/* <div className="col-12 col-sm-5 m-1">
           <RenderReviews Reviews={props.Reviews} />
           <CommentForm />
-        </div>
+        </div> */}
 
       </div>
     </div>
