@@ -1,4 +1,15 @@
-import React, { Component } from 'react';
+
+// alert("rating: " + event.target.rating.value + " review: " + event.target.review.value);
+// const review = {
+//     review: event.target.review.value,
+//     rating: event.target.rating.value,
+//     bookId: this.props.bookId,
+//     userName: this.props.userName
+// }
+// console.log(review);
+// // this.props.addReview(review);import React, { Component } from 'react';
+import React, { Component }
+    from 'react';
 import {
     Button, Modal, ModalHeader, ModalBody,
     Label,
@@ -11,16 +22,17 @@ import {
 // The author field should at least be three characters long.
 // The author field should be less than or equal to 15 characters.
 
-class CommentForm extends Component {
+class AddReviewForm extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             isModalOpen: false,
             touched: {
-                name: false
+                review: false
             },
-            name: null
+            review: '',
+            rating: null
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
@@ -33,29 +45,37 @@ class CommentForm extends Component {
     }
 
     handleSubmit(event) {
-        this.toggleModal();
-        alert("rating: " + this.rating.value + " name: " + this.name.value
-            + " comment: " + this.comment.value);
         event.preventDefault();
+        this.toggleModal();
+        const review = {
+            review: this.state.review,
+            rating: this.state.rating,
+            bookId: this.props.bookId,
+            userId: this.props.userId
+        }
+        console.log(review);
+        this.props.addReview(review);
+
+        // this.props.postComment(event.target.rating.value, event.target.review.value);
+
 
     }
     handleInputChange(event) {
         const target = event.target;
         const name = target.name;
+        console.log(name);
         this.setState({
             [name]: target.value
         });
     }
-    validate(name) {
+    validate(review) {
 
         const errors = {
-            name: ''
+            review: ''
         };
 
-        if (this.state.touched.name && name.length < 3)
-            errors.name = 'First Name should be >= 3 characters';
-        else if (this.state.touched.name && name.length > 10)
-            errors.name = 'First Name should be <= 15 characters';
+        if (this.state.touched.review && review.length < 3)
+            errors.review = 'Review should be >= 3 characters';
 
         return errors;
     }
@@ -68,10 +88,11 @@ class CommentForm extends Component {
     }
 
     render() {
-        const errors = this.validate(this.state.name);
+        const errors = this.validate(this.state.review);
+        // console.log(errors);
         return (
             <div>
-                <Button color="primary" onClick={this.toggleModal}> <i class=' fa fa-pencil '></i> Add Comment</Button>
+                <Button color="primary" onClick={this.toggleModal}> <i className=' fa fa-pencil '></i> Add Review</Button>
                 <Modal isOpen={this.state.isModalOpen} toggle={this.state.toggleModal} >
                     <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
                     <ModalBody>
@@ -80,24 +101,21 @@ class CommentForm extends Component {
                                 <Label htmlFor="rating">Rating</Label>
                                 <Input type="number" id="rating" name="rating"
                                     innerRef={(input) => this.rating = input}
+                                    onBlur={this.handleBlur('rating')}
+                                    onChange={this.handleInputChange}
                                 />
 
                             </FormGroup>
                             <FormGroup>
-                                <Label htmlFor="name">Your name</Label>
-                                <Input type="text" id="name" name="name"
-                                    innerRef={(input) => this.name = input}
-                                    valid={errors.name === ''}
-                                    invalid={errors.name !== ''}
-                                    onBlur={this.handleBlur('name')}
+                                <Label htmlFor="review">Review</Label>
+                                <Input type="text" id="review" name="review"
+                                    innerRef={(input) => this.review = input}
+                                    valid={errors.review === ''}
+                                    invalid={errors.review !== ''}
+                                    onBlur={this.handleBlur('review')}
                                     onChange={this.handleInputChange}
                                 />
                                 <FormFeedback>{errors.name}</FormFeedback>
-                            </FormGroup>
-                            <FormGroup>
-                                <Label htmlFor="comment">Comment</Label>
-                                <Input type="textarea" id="comment" name="comment"
-                                    innerRef={(input) => this.comment = input} />
                             </FormGroup>
                             <Button type="submit" value="submit" color="primary">Submit</Button>
                         </Form>
@@ -109,4 +127,4 @@ class CommentForm extends Component {
         );
     }
 }
-export default CommentForm;
+export default AddReviewForm;

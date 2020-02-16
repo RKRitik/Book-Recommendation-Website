@@ -2,10 +2,10 @@ import axios from 'axios';
 import * as ActionTypes from './ActionTypes';
 import { returnErrors } from './errorActions';
 
-export const getResults = (searchTerms, filter) => dispatch => {
-  console.log('filter = ', filter);
+export const getResults = (searchTerms, filter, filterTerm) => dispatch => {
+
   dispatch(setResultsLoading());
-  const body = JSON.stringify({ searchTerms, filter });
+  const body = JSON.stringify({ searchTerms, filter, filterTerm });
   console.log(body);
   const headers = {
     "Content-Type": "application/json"

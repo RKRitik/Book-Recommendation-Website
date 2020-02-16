@@ -2,7 +2,7 @@
 const router = require('express').Router();
 let Book = require('../../models/Book');
 const mongoose = require('mongoose');
-//const auth = require("../../middleware/auth");
+const auth = require("../../middleware/auth");
 
 
 router.route('/').get((req, res) => {
@@ -25,22 +25,23 @@ router.route('/:Id').get((req, res) => {
 })
 
 
-// router.post('/add',auth,(req, res) => {
-//     console.log(req.body);
-//     const bookId = Number(req.body.bookId);
+router.post('/', auth, (req, res) => {
+    console.log(req.body);
 
-//     const authorId = Number(req.body.authorId);
-//     const userEmail = req.body.email;
-//     const newBook = new Book({ bookId, authorId ,userEmail});
-//     newBook.save()
-//         .then(() => {
-//             res.json(newBook)
-//         })
-//         .catch((err) => {
-//             res.status(400).json('Error : ' + err)
-//         })
+    const bookId = Number(req.body.bookId);
 
-// })
+    const authorId = Number(req.body.authorId);
+    const userEmail = req.body.email;
+    const newBook = new Book({ bookId, authorId, userEmail });
+    newBook.save()
+        .then(() => {
+            res.json(newBook)
+        })
+        .catch((err) => {
+            res.status(400).json('Error : ' + err)
+        })
+
+})
 
 // router.delete('/:Id',auth,(req, res) => {
 

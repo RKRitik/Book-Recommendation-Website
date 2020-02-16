@@ -10,6 +10,8 @@ import Books from './MyBooks';
 import BookDetail from './BookDetailComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
+import { addBook, deleteBook } from '../actions/bookActions';
+import { addReview, deleteReview, getReviews } from '../actions/reviewActions';
 import { login, logout, register } from '../actions/authActions';
 import { clearErrors } from '../actions/errorActions';
 import { getResults } from '../actions/resultActions';
@@ -25,16 +27,21 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
+  ////------------Recommendation---------------------//
 
-  // postComment: (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment)),
-  // fetchDishes: () => { dispatch(fetchDishes()) },
-  // resetFeedbackForm: () => { dispatch(actions.reset('feedbackForm')) },
-  // fetchComments: () => dispatch(fetchComments()),
-  // fetchPromos: () => dispatch(fetchPromos()),
-  // fetchLeaders: () => dispatch(fetchLeaders()),
-  // postFeedback: (Feedback) => dispatch(postFeedback(Feedback))
+
+  ////------------Review---------------------//
+  addReview: (review) => dispatch(addReview(review)),
+  deleteReview: (id) => dispatch(deleteReview(id)),
+  getReviews: () => dispatch(getReviews),
+
+
+  ////------------Books---------------------//
+  addBook: (book) => dispatch(addBook(book)),
+  deleteBook: (id) => dispatch(deleteBook(id)),
+
   ////------------GetResults---------------//
-  getResults: (searchTerms, filters) => dispatch(getResults(searchTerms, filters)),
+  getResults: (searchTerms, filters, filterTerm) => dispatch(getResults(searchTerms, filters, filterTerm)),
 
 
   ////------------Auth---------------------//
@@ -52,14 +59,18 @@ class Main extends Component {
 
   render() {
     const BookWithId = ({ match }) => {
-      console.log('bookId = ', match.params.bookId);
       return (
         <BookDetail book={this.props.result.results.filter((book) => book.id === match.params.bookId)[0]}
           isLoading={this.props.result.isLoading}
           errMess={this.props.result.errMess}
-        // comments={this.props.comments.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10))}
-        // commentsErrMess={this.props.comments.errMess}
-        // postComment={this.props.postComment}
+          addBook={this.props.addBook}
+          reviews={this.props.review.reviews.filter((review) => review.bookId === parseInt(match.params.bookId, 10))}
+          // commentsErrMess={this.props.comments.errMess}
+          getReviews={this.props.getReviews}
+          addReview={this.props.addReview}
+          isLoading={this.props.auth.isLoading}
+          isAuthenticated={this.props.auth.isAuthenticated}
+          user={this.props.auth.user ? this.props.auth.user : null}
         />
       );
     };

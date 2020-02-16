@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 
-router.route('/').get((req, res) => {
+router.route('/').post((req, res) => {
     console.log(req.body);
     //inauthor | inpublisher | subject | isbn
     ///Google books api logic

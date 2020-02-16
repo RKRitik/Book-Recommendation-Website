@@ -23,5 +23,7 @@ export const GET_ERRORS = 'GET_ERRORS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 ////////////////////////////////////////////
 export const ADD_REVIEW = 'ADD_REVIEW';
-export const ADD_REVIEWS = 'ADD_REVIEWS';
+export const GET_REVIEWS = 'GET_REVIEWS';
 export const REVIEWS_FAILED = 'REVIEWS_FAILED';
+export const DELETE_REVIEW = 'DELETE_REVIEW';
+export const REVIEWS_LOADING = "REVIEWS_LOADING";

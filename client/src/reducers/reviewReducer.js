@@ -6,12 +6,17 @@ const initialState = {
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case ActionTypes.ADD_REVIEWS:
+        case ActionTypes.GET_REVIEWS:
             return { ...state, errMess: null, reviews: action.payload };
 
         case ActionTypes.REVIEWS_FAILED:
             return { ...state, errMess: action.payload };
-
+        case ActionTypes.DELETE_REVIEW:
+            return {
+                ...state,
+                errMess: null,
+                reviews: state.reviews.filter(review => review._id !== action.payload)
+            };
         case ActionTypes.ADD_REVIEW:
             var review = action.payload;
             return { ...state, reviews: state.reviews.concat(review) };

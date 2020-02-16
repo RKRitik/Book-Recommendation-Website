@@ -48,7 +48,7 @@ const Find = props => {
                 <SearchBarComponent getResults={props.getResults} />
             </div>
 
-            <div className="row">
+            <div className="row row-content">
                 {props.result.isLoading ? <LoadingComponent /> : results}
             </div>
         </div>

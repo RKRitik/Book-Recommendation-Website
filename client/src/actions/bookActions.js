@@ -4,9 +4,9 @@ import { tokenConfig } from './authActions';
 import { returnErrors } from './errorActions';
 
 export const getBooks = () => dispatch => {
-  dispatch(setItemsLoading());
+  dispatch(setBooksLoading());
   axios
-    .get('/api/books')
+    .get('/api/book')
     .then(res =>
       dispatch({
         type: ActionTypes.GET_BOOKS,
@@ -18,12 +18,12 @@ export const getBooks = () => dispatch => {
     );
 };
 
-export const addBook = item => (dispatch, getState) => {
+export const addBook = book => (dispatch, getState) => {
   axios
-    .post('/api/books', item, tokenConfig(getState))
+    .post('/api/book', book, tokenConfig(getState))
     .then(res =>
       dispatch({
-        type: ActionTypes.ADD_BOOKS,
+        type: ActionTypes.ADD_BOOK,
         payload: res.data
       })
     )
@@ -34,7 +34,7 @@ export const addBook = item => (dispatch, getState) => {
 
 export const deleteBook = id => (dispatch, getState) => {
   axios
-    .delete(`/api/books/${id}`, tokenConfig(getState))
+    .delete(`/api/book/${id}`, tokenConfig(getState))
     .then(res =>
       dispatch({
         type: ActionTypes.DELETE_BOOK,

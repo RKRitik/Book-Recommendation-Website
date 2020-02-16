@@ -3,8 +3,8 @@ import * as ActionTypes from './ActionTypes';
 import { tokenConfig } from './authActions';
 import { returnErrors } from './errorActions';
 
-export const getReviewss = () => dispatch => {
-  dispatch(setItemsLoading());
+export const getReviews = () => dispatch => {
+  dispatch(setReviewsLoading());
   axios
     .get('/api/review')
     .then(res =>
@@ -23,7 +23,7 @@ export const addReview = review => (dispatch, getState) => {
     .post('/api/review', review, tokenConfig(getState))
     .then(res =>
       dispatch({
-        type: ActionTypes.ADD_ITEM,
+        type: ActionTypes.ADD_REVIEW,
         payload: res.data
       })
     )

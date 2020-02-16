@@ -14,8 +14,10 @@ class SearchBarComponent extends Component {
         super(props);
         this.state = {
             search: "",
+            filterterm: "",
             touched: {
-                search: false
+                search: false,
+                filterterm: false
             },
             selected: null
 
@@ -28,8 +30,8 @@ class SearchBarComponent extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(this.state.search, this.state.selected);
-        this.props.getResults(this.state.search, this.state.selected);
+        // console.log(this.state.search, this.state.selected);
+        this.props.getResults(this.state.search, this.state.selected, this.state.filterterm);
         // event.preventDefault();
 
 
@@ -67,6 +69,14 @@ class SearchBarComponent extends Component {
                                 onBlur={this.handleBlur('search')}
                                 onChange={this.handleInputChange} />
                         </Col>
+                    </Row>
+                    <Row form className='mt-2 '>
+                        <Label htmlFor="filterterm" sm={2}>Filter by </Label>
+                        <Col sm={6}>
+                            <Input type="text" name="filterterm" id="filterterm" placeholder="Enter something" innerRef={(input) => this.name = input}
+                                onBlur={this.handleBlur('filterterm')}
+                                onChange={this.handleInputChange} />
+                        </Col>
                         <Col className='mr-auto'>
                             <ButtonGroup>
                                 <Button color="primary" onClick={() => this.onCheckboxBtnClick('inauthor')} active={this.state === 'inauthor'}>Author</Button>
@@ -76,7 +86,6 @@ class SearchBarComponent extends Component {
                             </ButtonGroup>
                         </Col>
                     </Row>
-
                     <Row className='mt-3'>
                         <Button type="submit" value="submit" color="primary">Submit</Button>
                     </Row>
