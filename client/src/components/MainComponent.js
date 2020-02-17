@@ -64,7 +64,7 @@ class Main extends Component {
           isLoading={this.props.result.isLoading}
           errMess={this.props.result.errMess}
           addBook={this.props.addBook}
-          reviews={this.props.review.reviews.filter((review) => review.bookId === parseInt(match.params.bookId, 10))}
+          reviews={this.props.review.reviews.filter((review) => review.bookId === match.params.bookId)}
           // commentsErrMess={this.props.comments.errMess}
           getReviews={this.props.getReviews}
           addReview={this.props.addReview}

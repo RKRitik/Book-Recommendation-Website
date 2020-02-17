@@ -51,7 +51,8 @@ class AddReviewForm extends Component {
             review: this.state.review,
             rating: this.state.rating,
             bookId: this.props.bookId,
-            userId: this.props.userId
+            userId: this.props.userId,
+            userName: this.props.userName
         }
         console.log(review);
         this.props.addReview(review);

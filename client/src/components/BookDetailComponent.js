@@ -107,6 +107,9 @@ class BookDetail extends React.Component {
   componentDidMount() {
     this.props.getReviews();
   }
+  componentDidUpdate() {
+    this.props.getReviews();
+  }
   render() {
     return (
 
@@ -129,11 +132,14 @@ class BookDetail extends React.Component {
           </div>
 
           <div className="col-12 col-sm-5 m-1">
-            <RenderReviews reviews={this.props.reviews} />
+            <RenderReviews reviews={this.props.reviews}
+            />
             {this.props.isAuthenticated ?
               <AddReviewForm addReview={this.props.addReview}
                 bookId={this.props.book.id}
-                userId={this.props.user._id} /> : null}
+                userId={this.props.user._id}
+                userName={this.props.user.name}
+              /> : null}
 
 
           </div>
