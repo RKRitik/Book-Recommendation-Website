@@ -2,7 +2,7 @@ import * as ActionTypes from '../actions/ActionTypes';
 
 const initialState = {
   books: [],
-  loading: false,
+  isLoading: false,
   errMess: null
 };
 

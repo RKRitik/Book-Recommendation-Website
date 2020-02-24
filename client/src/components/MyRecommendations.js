@@ -9,7 +9,7 @@ import {
     BreadcrumbItem
 } from "reactstrap";
 import { Link } from "react-router-dom";
-class Books extends Component {
+class Recommend extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,37 +18,40 @@ class Books extends Component {
     }
     componentDidUpdate() {
         if (this.props.auth.user != null)
-            this.props.getBooks(this.props.auth.user.id);
+            this.props.getRecommendations(this.props.auth.user.id);
     }
     render() {
-        const books = this.props.book.books.map(book => {
-            return (
-                <div key={book.id} className="col-12 col-md-5 m-1">
-                    {book.id}
-                </div>
-            );
-        });
+
+
+        // const recommendations = this.props.recommend.recommendations.map(re => {
+        //     return (
+        //         <div key={re.id} className="col-12 col-md-5 m-1">
+        //             {re.id} />
+        //         </div>
+        //     );
+        // });
         const na =
             <div className='col-12 '><Alert color="danger">
                 Oops No Content Available
-      </Alert>
+          </Alert>
             </div>
+
         return (
             <div className='container'>
-                <h1> My Books</h1>
+                <h1> Get Recommendations</h1>
                 <div className="row">
                     <Breadcrumb>
                         <BreadcrumbItem>
                             <Link to="/home">Home</Link>
                         </BreadcrumbItem>
-                        <BreadcrumbItem active>My Books</BreadcrumbItem>
+                        <BreadcrumbItem active>My Recommendations</BreadcrumbItem>
                     </Breadcrumb>
                 </div>
 
 
                 <div className="row row-content">
-                    {this.props.book.isLoading ? <LoadingComponent /> : books}
-                    {!this.props.book.isLoading && this.props.book.books.length === 0 ? na : null}
+                    {this.props.recommend.isLoading ? <LoadingComponent /> : null}
+                    {!this.props.recommend.isLoading && this.props.recommend.recommendations.length === 0 ? na : null}
                 </div>
             </div>
         );
@@ -59,4 +62,4 @@ class Books extends Component {
 }
 
 
-export default Books;
+export default Recommend;

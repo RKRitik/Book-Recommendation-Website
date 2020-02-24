@@ -50,6 +50,10 @@ const BookSchema = new Schema(
             type: String,
             required: true,
             trim: true
+        },
+        userId: {
+            type: String,
+            required: true
         }
 
     },

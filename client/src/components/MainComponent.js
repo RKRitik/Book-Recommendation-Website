@@ -3,17 +3,18 @@ import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import About from "./AboutComponent";
 import Home from "./HomeComponent";
-import Recommend from './GetRecommendations';
+import Recommend from './MyRecommendations';
 import Find from './FindBookComponent';
 import Reviews from './MyReviews';
 import Books from './MyBooks';
 import BookDetail from './BookDetailComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { addBook, deleteBook } from '../actions/bookActions';
+import { addBook, deleteBook, getBooks } from '../actions/bookActions';
 import { addReview, deleteReview, getReviews } from '../actions/reviewActions';
 import { login, logout, register } from '../actions/authActions';
 import { clearErrors } from '../actions/errorActions';
+import { getRecommendations } from '../actions/recommendActions';
 import { getResults } from '../actions/resultActions';
 const mapStateToProps = state => {
   return {
@@ -21,25 +22,26 @@ const mapStateToProps = state => {
     auth: state.auth,
     error: state.error,
     result: state.result,
-    book: state.book
+    book: state.book,
+    recommend: state.recommend
     //leaders: state.leaders
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
   ////------------Recommendation---------------------//
-
+  getRecommendations: (userId) => dispatch(getRecommendations(userId)),
 
   ////------------Review---------------------//
   addReview: (review) => dispatch(addReview(review)),
   deleteReview: (id) => dispatch(deleteReview(id)),
-  getReviews: () => dispatch(getReviews),
+  getReviews: (userId) => dispatch(getReviews(userId)),
 
 
   ////------------Books---------------------//
   addBook: (book) => dispatch(addBook(book)),
   deleteBook: (id) => dispatch(deleteBook(id)),
-
+  getBooks: (userId) => dispatch(getBooks(userId)),
   ////------------GetResults---------------//
   getResults: (searchTerms, filters, filterTerm) => dispatch(getResults(searchTerms, filters, filterTerm)),
 
@@ -54,10 +56,30 @@ const mapDispatchToProps = (dispatch) => ({
 
 });
 class Main extends Component {
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      auth: this.props.auth
+    }
+  }
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      getBooks(this.props.auth.user._id);
+      getReviews(this.props.auth.user._id);
+      getRecommendations(this.props.auth.user._id);
+    }
+  }
+  componentDidUpdate() {
+    if (this.props.auth.isAuthenticated) {
+      getBooks(this.props.auth.user._id);
+      getReviews(this.props.auth.user._id);
+      getRecommendations(this.props.auth.user._id);
+    }
+  }
 
 
   render() {
+
     const BookWithId = ({ match }) => {
       return (
         <BookDetail book={this.props.result.results.filter((book) => book.id === match.params.bookId)[0]}
@@ -85,9 +107,9 @@ class Main extends Component {
             <Route path='/home' component={Home} />
             <Route exact path='/about' component={About} />}
 
-            <Route exact path='/recommend' component={Recommend} />
-            <Route exact path='/reviews' component={Reviews} />
-            <Route exact path='/books' component={Books} />
+            <Route exact path='/recommend' component={() => <Recommend auth={this.props.auth} recommend={this.props.recommend} getRecommendations={this.props.getRecommendations} />} />
+            <Route exact path='/reviews' component={() => <Reviews auth={this.props.auth} deleteReview={this.props.deleteReview} getReviews={this.props.getReviews} review={this.props.review} />} />
+            <Route exact path='/books' component={() => <Books auth={this.props.auth} deleteBook={this.props.deleteBook} book={this.props.book} getBooks={this.props.getBooks} />} />
             <Route exact path='/find' component={() => <Find result={this.props.result} getResults={this.props.getResults} />} />
             <Route path='/find/:bookId' component={BookWithId} />
             <Redirect to="/home" />

@@ -13,15 +13,18 @@ export const getResults = (searchTerms, filter, filterTerm) => dispatch => {
   axios
     .post('/api/results', body, {
       headers: headers
-    }).then(res =>
-      dispatch({
-        type: ActionTypes.GET_RESULTS,
-        payload: res.data
-      })
+    }).then(res => {
+      if (res.length > 0)
+        dispatch({ type: ActionTypes.GET_RESULTS, payload: res.data })
+      else {
+        console.log('could not find any results');
+        dispatch(returnErrors('Could not find any books', 500))
+      }
+    }
     )
-    .catch(err =>
-      dispatch(returnErrors(err.response.data, err.response.status))
-    );
+  // .catch(err =>
+  //   dispatch(returnErrors(err.response.data, err.response.status))
+  // );
 };
 
 

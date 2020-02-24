@@ -41,5 +41,8 @@
     "nodemon": "^2.0.2",
     "path": "^0.12.7",
     "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^2.2.0"
   }
 }

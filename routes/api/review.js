@@ -33,5 +33,11 @@ router.route('/').post((req, res) => {
 
         })
 })
+router.route('/:Id').get((req, res) => {
+    console.log('got requeast for ', req.params.Id);
+    Review.find({ 'userId': req.params.Id })
+        .then(books => res.json(books))
+        .catch(err => res.status(400).json('Error' + err));
+})
 
 module.exports = router;

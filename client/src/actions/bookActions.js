@@ -3,10 +3,10 @@ import * as ActionTypes from './ActionTypes';
 import { tokenConfig } from './authActions';
 import { returnErrors } from './errorActions';
 
-export const getBooks = () => dispatch => {
+export const getBooks = (userId) => dispatch => {
   dispatch(setBooksLoading());
   axios
-    .get('/api/book')
+    .get(`/api/book/${userId}`)
     .then(res =>
       dispatch({
         type: ActionTypes.GET_BOOKS,

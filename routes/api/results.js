@@ -3,43 +3,50 @@ const router = express.Router();
 const fetch = require('node-fetch');
 
 router.route('/').post((req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     let { searchTerms, filter, filterTerm } = req.body;
-    let fBooks;
+    let fBooks = [];
     searchTerms = searchTerms.replace(/\s/g, '+');
     const link = "https://www.googleapis.com/books/v1/volumes?q=";
     fetch(link + searchTerms)
         .then(response => { return response.json() })
         .then(books => {
             const Books = books.items;
+            // Books.forEach((book) => {
+            //     console.log(book.volumeInfo.categories.indexOf('Literary Criticism'));
+            // });
+            //  console.log('filter = ' + filter);
             if (filter) {
                 switch (filter) {
-                    case inpublisher:
+                    case 'inpublisher':
                         fBooks = Books.filter(function (book) {
                             return book.volumeInfo.publisher === filterTerm;
                         });
 
                         break;
-                    case inauthor:
+                    case 'inauthor':
                         fBooks = Books.filter(function (book) {
-                            return !book.volumeInfo.authors.indexOf(filterTerm);
+                            return book.volumeInfo.authors.indexOf(filterTerm);
                         });
+                        //    console.log(fBooks);
                         break;
-                    case isbn:
+                    case 'isbn':
                         fBooks = Books.filter(function (book) {
                             return book.volumeInfo.industryIdentifiers[1].identifier === filterTerm;
                         });
                         break;
-                    case subject:
+                    case 'subject':
+
                         fBooks = Books.filter(function (book) {
-                            return !book.volumeInfo.categories.indexOf(filterTerm);
+
+                            return book.volumeInfo.categories.indexOf(filterTerm);
                         });
                         break;
                     default:
-                        console.log('default case');
+                        //console.log('default case');
                         fBooks = Books;
                 }
-                console.log('fbooks = ', fBooks);
+                //  console.log('fbooks = ', fBooks);
                 res.json(fBooks);
             }
             else {

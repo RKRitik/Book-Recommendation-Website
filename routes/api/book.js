@@ -6,12 +6,12 @@ const auth = require("../../middleware/auth");
 
 
 router.route('/').get((req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     Book.find()
         .sort({ createdAt: -1 })
         .then(books => {
 
-            console.log(books);
+            //  console.log(books);
             res.json(books)
         })
         .catch(err => res.status(400).json('Error' + err));
@@ -19,7 +19,7 @@ router.route('/').get((req, res) => {
 
 router.route('/:Id').get((req, res) => {
 
-    Book.find({ 'bookId': req.params.Id })
+    Book.find({ 'userId': req.params.Id })
         .then(books => res.json(books))
         .catch(err => res.status(400).json('Error' + err));
 })

@@ -1,30 +1,50 @@
-import React, { Component } from 'react';
 
-class Reviews extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
+import React from "react";
+import {
+    Card,
+    CardImg,
+    CardImgOverlay,
+    CardTitle, Alert,
+    Breadcrumb,
+    BreadcrumbItem
+} from "reactstrap";
+import { Link } from "react-router-dom";
 
-        }
-    }
-    render() {
+import LoadingComponent from './LoadingComponent';
 
+
+const Reviews = props => {
+    const review = props.review.reviews.map(review => {
         return (
-            <div className='container'>
-                <h1> My Reviews</h1>
-                <div className='row row-content'>
-                    Maecenas nec erat dictum, vehicula velit non, scelerisque eros.
-                    Morbi feugiat sem vel leo porttitor interdum. In dignissim ipsum dolor, ac ullamcorper tellus suscipit sit amet. Vivamus et mauris tempus, porta purus finibus, consequat lorem. Vestibulum maximus aliquet eros,
-                    sed sodales tortor placerat eget. Sed vel ipsum massa.
-                    Duis at sem id sem viverra bibendum.
-                </div>
+            <div key={review.id} className="col-12 col-md-5 m-1">
+                {review.id}
             </div>
         );
-    }
+    });
+    const na =
+        <div className='col-12 '><Alert color="danger">
+            Oops No Content Available
+  </Alert>
+        </div>
+
+    return (
+        <div className="container">
+            <div className="row">
+                <Breadcrumb>
+                    <BreadcrumbItem>
+                        <Link to="/home">Home</Link>
+                    </BreadcrumbItem>
+                    <BreadcrumbItem active>My Reviews</BreadcrumbItem>
+                </Breadcrumb>
+            </div>
 
 
-
-}
-
+            <div className="row row-content">
+                {props.review.isLoading ? <LoadingComponent /> : review}
+                {!props.review.isLoading && props.review.reviews.length === 0 ? na : null}
+            </div>
+        </div>
+    );
+};
 
 export default Reviews;

@@ -7,25 +7,8 @@ import {
   CardHeader
 } from "reactstrap";
 import { Link } from "react-router-dom";
-// function RenderLeader({ leader }) {
-//   return (
-//     <Media className="mb-5">
-//       <Media>
-//         <Media object src={leader.image} alt="Generic placeholder image" />
-//       </Media>
-//       <Media body className="ml-5">
-//         <Media heading>{leader.name}</Media>
-//         {leader.designation}
-//         <br /> <br />
-//         {leader.description}
-//       </Media>
-//     </Media>
-//   );
-// }
 
 function About() {
-  // const leaders = props.leaders.map(leader => {
-  //   return <RenderLeader leader={leader} />;
 
 
   return (
@@ -46,13 +29,21 @@ function About() {
         <div className="col-12 col-md-6">
           <h2>Our History</h2>
           <p>
-            Started in 2020, orem Ipsum is simply dummy text of the printing and typesetting industry.
-            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-            took a galley of type and scrambled it to make a type specimen book.
-            It has survived not only five centuries, but also the leap into electronic
-            typesetting, remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages, and more
-            recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            Welcome to Good Books, your number one source for all things for books. We're dedicated to providing you the very best of books, with an emphasis on your fine tuned , similar and , beneficial books.
+
+
+  Founded in 2020 by  Ritik Khatri, Good Books has come a long way from its beginnings in our hostel rooms. When Ritik first started out, his passion for good books for all drove them to start their own business.
+
+
+  We hope you enjoy our products as much as we enjoy offering them to you. If you have any questions or comments, please don't hesitate to contact us.
+
+<p>Sincerely,
+<br></br>
+              Ritik Khatri <br></br>
+              Antony Clement P <br></br>
+              Vrishabh</p>
+
+
           </p>
 
         </div>
@@ -62,29 +53,28 @@ function About() {
               Facts At a Glance
             </CardHeader>
             <CardBody>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Praesent nec arcu risus. Quisque maximus nunc in dolor posuere, a aliquet eros ultricies.
-              Morbi sed neque at nisl cursus consectetur. Sed ac nisl in tellus pellentesque vestibulum.
-              Donec ultrices lacus mollis nisl pretium ullamcorper. Nullam vitae elit libero. Donec a risus at arcu vehicula porta.
-              In orci elit, posuere id dui at, imperdiet vulputate neque. In rhoncus leo varius ipsum scelerisque bibendum in quis mauris.
-              Curabitur ultricies ullamcorper velit, eget dictum lorem semper quis. Praesent posuere orci ac enim congue egestas.
-              In hac habitasse platea dictumst. Quisque ipsum odio, semper nec vulputate quis, egestas at nisi.
-              Quisque nisl libero, tristique a ipsum et,
-              luctus pellentesque leo. Vestibulum non eros magna.
-          </CardBody>
+              <p className="card-text">Established: 2020 </p>
+
+              <p className="card-text">   Employees: 3</p>
+
+              <p className="card-text">    Co-Founder & CEO
+           <strong> Ritik Khatri</strong></p>
+
+              <p className="card-text">    Co-Founder & COO
+            <strong> Antony Clement P</strong></p>
+
+              <p className="card-text">  Co-Founder &  CFO
+            <strong> Vrishabh</strong></p>
+
+
+            </CardBody>
           </Card>
 
         </div>
-        <div className="row row-content">
-          <div className="col-12">
-            <h2>Corporate Leadership</h2>
-            {/* <Media list>{leaders}</Media> */}
-          </div>
-        </div>
+
       </div>
-      );
-      }
-</div>);
+
+    </div>);
 }
 
 export default About;

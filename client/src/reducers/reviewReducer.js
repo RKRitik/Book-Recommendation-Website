@@ -1,5 +1,6 @@
 import * as ActionTypes from '../actions/ActionTypes';
 const initialState = {
+    isLoading: false,
     errMess: null,
     reviews: []
 };
@@ -7,10 +8,11 @@ const initialState = {
 export default function (state = initialState, action) {
     switch (action.type) {
         case ActionTypes.GET_REVIEWS:
-            return { ...state, errMess: null, reviews: action.payload };
-
+            return { ...state, isLoading: false, errMess: null, reviews: action.payload };
+        case ActionTypes.REVIEWS_LOADING:
+            return { ...state, isLoading: true, errMess: null, reviews: [] };
         case ActionTypes.REVIEWS_FAILED:
-            return { ...state, errMess: action.payload };
+            return { ...state, isLoading: false, errMess: action.payload, reviews: [] };
         case ActionTypes.DELETE_REVIEW:
             return {
                 ...state,

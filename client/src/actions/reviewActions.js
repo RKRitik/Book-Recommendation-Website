@@ -3,15 +3,17 @@ import * as ActionTypes from './ActionTypes';
 import { tokenConfig } from './authActions';
 import { returnErrors } from './errorActions';
 
-export const getReviews = () => dispatch => {
+export const getReviews = (userId) => dispatch => {
   dispatch(setReviewsLoading());
   axios
-    .get('/api/review')
-    .then(res =>
+    .get(`/api/review/${userId}`)
+    .then(res => {
+      console.log(res);
       dispatch({
         type: ActionTypes.GET_REVIEWS,
         payload: res.data
       })
+    }
     )
     .catch(err =>
       dispatch(returnErrors(err.response.data, err.response.status))
