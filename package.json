@@ -1,6 +1,7 @@
 {
   "name": "online-book-recommendation",
   "version": "1.0.0",
+  "homepage": "http://RKRitik.github.io/Book-Recommendation-Website",
   "description": "write reviews about the books you have read and get new recommended books",
   "main": "server.js",
   "scripts": {
@@ -8,7 +9,7 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\" ",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "repository": {
@@ -26,7 +27,6 @@
   "bugs": {
     "url": "https://github.com/RKRitik/Book-Recommendation-Website/issues"
   },
-  "homepage": "https://github.com/RKRitik/Book-Recommendation-Website#readme",
   "dependencies": {
     "axios": "^0.19.2",
     "bcrypt": "^3.0.8",
