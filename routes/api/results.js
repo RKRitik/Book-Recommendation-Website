@@ -1,61 +1,62 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const fetch = require('node-fetch');
+const fetch = require("node-fetch");
 
-router.route('/').post((req, res) => {
-    // console.log(req.body);
-    let { searchTerms, filter, filterTerm } = req.body;
-    let fBooks = [];
-    searchTerms = searchTerms.replace(/\s/g, '+');
-    const link = "https://www.googleapis.com/books/v1/volumes?q=";
-    fetch(link + searchTerms)
-        .then(response => { return response.json() })
-        .then(books => {
-            const Books = books.items;
-            // Books.forEach((book) => {
-            //     console.log(book.volumeInfo.categories.indexOf('Literary Criticism'));
-            // });
-            //  console.log('filter = ' + filter);
-            if (filter) {
-                switch (filter) {
-                    case 'inpublisher':
-                        fBooks = Books.filter(function (book) {
-                            return book.volumeInfo.publisher === filterTerm;
-                        });
+router.route("/").post((req, res) => {
+  console.log(req.body);
 
-                        break;
-                    case 'inauthor':
-                        fBooks = Books.filter(function (book) {
-                            return book.volumeInfo.authors.indexOf(filterTerm);
-                        });
-                        //    console.log(fBooks);
-                        break;
-                    case 'isbn':
-                        fBooks = Books.filter(function (book) {
-                            return book.volumeInfo.industryIdentifiers[1].identifier === filterTerm;
-                        });
-                        break;
-                    case 'subject':
+  let { searchTerms, filter, filterTerm } = req.body;
+  let fBooks = [];
+  searchTerms = searchTerms.replace(/\s/g, "+");
+  const link = "https://www.googleapis.com/books/v1/volumes?q=";
+  fetch(link + searchTerms)
+    .then(response => {
+      return response.json();
+    })
+    .then(books => {
+      const Books = books.items;
+      //console.log(Books);
+      // Books.forEach((book) => {
+      //     console.log(book.volumeInfo.categories.indexOf('Literary Criticism'));
+      // });
+      //  console.log('filter = ' + filter);
+      if (filter) {
+        switch (filter) {
+          case "inpublisher":
+            fBooks = Books.filter(function(book) {
+              return book.volumeInfo.publisher === filterTerm;
+            });
 
-                        fBooks = Books.filter(function (book) {
-
-                            return book.volumeInfo.categories.indexOf(filterTerm);
-                        });
-                        break;
-                    default:
-                        //console.log('default case');
-                        fBooks = Books;
-                }
-                //  console.log('fbooks = ', fBooks);
-                res.json(fBooks);
-            }
-            else {
-                res.json(Books);
-            }
-
-        })
-        .catch(err => res.status(400).json('Error' + err));
-})
-
+            break;
+          case "inauthor":
+            fBooks = Books.filter(function(book) {
+              return book.volumeInfo.authors.indexOf(filterTerm);
+            });
+            //    console.log(fBooks);
+            break;
+          case "isbn":
+            fBooks = Books.filter(function(book) {
+              return (
+                book.volumeInfo.industryIdentifiers[1].identifier === filterTerm
+              );
+            });
+            break;
+          case "subject":
+            fBooks = Books.filter(function(book) {
+              return book.volumeInfo.categories.indexOf(filterTerm);
+            });
+            break;
+          default:
+            //console.log('default case');
+            fBooks = Books;
+        }
+        //  console.log('fbooks = ', fBooks);
+        res.json(fBooks);
+      } else {
+        res.json(Books);
+      }
+    })
+    .catch(err => res.status(400).json("Error" + err));
+});
 
 module.exports = router;
