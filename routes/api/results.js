@@ -15,18 +15,12 @@ router.route("/").post((req, res) => {
     })
     .then(books => {
       const Books = books.items;
-      //console.log(Books);
-      // Books.forEach((book) => {
-      //     console.log(book.volumeInfo.categories.indexOf('Literary Criticism'));
-      // });
-      //  console.log('filter = ' + filter);
       if (filter) {
         switch (filter) {
           case "inpublisher":
             fBooks = Books.filter(function(book) {
               return book.volumeInfo.publisher === filterTerm;
             });
-
             break;
           case "inauthor":
             fBooks = Books.filter(function(book) {
@@ -47,10 +41,8 @@ router.route("/").post((req, res) => {
             });
             break;
           default:
-            //console.log('default case');
             fBooks = Books;
         }
-        //  console.log('fbooks = ', fBooks);
         res.json(fBooks);
       } else {
         res.json(Books);
