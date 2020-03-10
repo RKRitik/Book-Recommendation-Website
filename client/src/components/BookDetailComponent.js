@@ -159,6 +159,7 @@ class BookDetail extends React.Component {
                 bookId={this.props.book.id}
                 userId={this.props.user._id}
                 userName={this.props.user.name}
+                bookTitle={this.props.book.volumeInfo.title}
               />
             ) : null}
           </div>

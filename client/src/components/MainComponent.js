@@ -35,7 +35,7 @@ const mapDispatchToProps = dispatch => ({
   ////------------Review---------------------//
   addReview: review => dispatch(addReview(review)),
   deleteReview: id => dispatch(deleteReview(id)),
-  getReviews: userId => dispatch(getReviews(userId)),
+  getReviews: userId => dispatch(getReviews(userId)), /////
 
   ////------------Books---------------------//
   addBook: book => dispatch(addBook(book)),
@@ -61,16 +61,23 @@ class Main extends Component {
   }
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      getBooks(this.props.auth.user._id);
-      getReviews(this.props.auth.user._id);
-      getRecommendations(this.props.auth.user._id);
+      this.props.getBooks(this.props.auth.user._id);
+      this.props.getReviews(this.props.auth.user._id);
+      this.props.getRecommendations(this.props.auth.user._id);
     }
   }
-  componentDidUpdate() {
-    if (this.props.auth.isAuthenticated) {
-      getBooks(this.props.auth.user._id);
-      getReviews(this.props.auth.user._id);
-      getRecommendations(this.props.auth.user._id);
+  componentDidUpdate(prevProps, prevState) {
+    const { auth } = this.props;
+    if (prevProps.auth !== auth) {
+      if (this.props.auth.isAuthenticated) {
+        // console.log("component did update..");
+        this.props.getBooks(this.props.auth.user._id);
+
+        this.props.getReviews(this.props.auth.user._id);
+
+        // console.log("outside getreviews");
+        this.props.getRecommendations(this.props.auth.user._id);
+      }
     }
   }
 

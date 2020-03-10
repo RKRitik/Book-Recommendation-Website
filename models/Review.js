@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 // Create Schema
@@ -19,6 +19,10 @@ const ReviewSchema = new Schema({
     type: String,
     required: true
   },
+  bookTitle: {
+    type: String,
+    required: true
+  },
   userName: {
     type: String,
     required: true
@@ -27,7 +31,6 @@ const ReviewSchema = new Schema({
     type: String,
     required: true
   }
-
 });
 
-module.exports = Review = mongoose.model('review', ReviewSchema);
+module.exports = Review = mongoose.model("review", ReviewSchema);
