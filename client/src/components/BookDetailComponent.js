@@ -157,7 +157,7 @@ class BookDetail extends React.Component {
               <AddReviewForm
                 addReview={this.props.addReview}
                 bookId={this.props.book.id}
-                userId={this.props.user._id}
+                userId={this.props.user.id}
                 userName={this.props.user.name}
                 bookTitle={this.props.book.volumeInfo.title}
               />
