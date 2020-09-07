@@ -1,4 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://root:DX3xe9wAUqfA6WY@bookreviewdatabase-zae6a.gcp.mongodb.net/test?retryWrites=true&w=majority",
-  "jwtSecret": "sl_myJwtSecret"
+  "mongoURI": "MY_MONGODB_URI",
+  "jwtSecret": "MY_JWT_SECRET"
 }
