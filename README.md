@@ -11,9 +11,7 @@
 <img src="https://img.shields.io/badge/State--Manager-Redux-purple?logo=redux">
 </p>
 
-<div align="center">
-  <img src="https://elit-altum.github.io/assets/Finstagram.jpg" width="250">
-</div>
+
 
 
 
@@ -37,7 +35,7 @@
   
    - [MongoDB](https://www.mongodb.com/cloud/atlas) : Either a cloud hosted cluster on Mongo Atlas or your local mongo URL.
 
-### C. Create a `.env` file for serving secrets
+### C. Edit the config file for serving secrets
 
 1. On the root of your project , in the folder config
    Add the following content to the default.json 
